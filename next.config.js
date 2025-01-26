@@ -12,21 +12,6 @@ const nextConfig = {
   eslint: {
     // Don't fail build on ESLint errors during deployment
     ignoreDuringBuilds: true,
-  },
-  webpack: (config, { isServer }) => {
-    // Add transpilation for undici
-    config.module.rules.push({
-      test: /\.js$/,
-      include: /node_modules\/undici/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
-          plugins: ['@babel/plugin-transform-private-methods', '@babel/plugin-transform-class-properties']
-        }
-      }
-    });
-    return config;
   }
 }
 
