@@ -9,13 +9,14 @@ export default function SignInWithGoogle() {
   return (
     <button
       onClick={signInWithGoogle}
-      className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      className="flex items-center justify-center bg-white text-gray-700 font-semibold py-2 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition duration-300 ease-in-out"
     >
       <Image
         src="/google-icon.png"
-        alt="Google"
-        width={20}
-        height={20}
+        alt="Google logo"
+        width={24}
+        height={24}
+        className="mr-2"
         priority
       />
       Sign in with Google
