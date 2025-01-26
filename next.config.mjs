@@ -17,6 +17,16 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  webpack: (config, { isServer }) => {
+    // Fix for the `undici` module error
+    if (!isServer) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'undici': false,
+      };
+    }
+    return config;
+  },
 };
 
 export default nextConfig;
