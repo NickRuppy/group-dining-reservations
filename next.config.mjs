@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+// Force clean deployment
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -7,14 +8,6 @@ const nextConfig = {
         hostname: "placehold.co",
         port: "",
         pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "replicate.com",
-      },
-      {
-        protocol: "https",
-        hostname: "replicate.delivery",
       },
       {
         protocol: "https",
