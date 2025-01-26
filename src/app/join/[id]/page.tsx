@@ -122,7 +122,7 @@ export default function JoinReservationPage({ params }: { params: { id: string }
           <div className="mt-6">
             {isParticipant ? (
               <div className="text-center">
-                <p className="text-sm text-gray-600">{"You're"} already part of this reservation.</p>
+                <p className="text-sm text-gray-600">You're already part of this reservation.</p>
                 <Link
                   href={`/reservations/${params.id}`}
                   className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
@@ -132,7 +132,7 @@ export default function JoinReservationPage({ params }: { params: { id: string }
               </div>
             ) : isOrganizer ? (
               <div className="text-center">
-                <p className="text-sm text-gray-600">{"You're"} the organizer of this reservation.</p>
+                <p className="text-sm text-gray-600">You're the organizer of this reservation.</p>
                 <Link
                   href={`/reservations/${params.id}`}
                   className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
