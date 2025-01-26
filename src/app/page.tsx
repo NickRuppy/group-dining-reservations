@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useAuth } from "@/lib/hooks/useAuth";
 
 export default function Home() {
   return (
