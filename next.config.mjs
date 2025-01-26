@@ -20,9 +20,13 @@ const nextConfig = {
   transpilePackages: ['undici'],
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        './runtimeConfig': './runtimeConfig.browser',
+      // Exclude undici from client-side bundle
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        undici: false,
+        'node-fetch': false,
+        'isomorphic-fetch': false,
+        fetch: false,
       };
     }
     return config;
