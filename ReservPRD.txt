@@ -1,0 +1,454 @@
+PRODUCT REQUIREMENTS DOCUMENT (PRD)
+===================================
+
+1. PRODUCT OVERVIEW
+-------------------
+Product Name: Group Dining Reservation Platform
+Goal: Facilitate easy creation, management, and joining of group restaurant reservations among friends, with optional pre-payment.
+Primary Users: Young, well-earning professionals who frequently dine out in groups and value convenience, organization, and social sharing.
+
+2. OBJECTIVES & SCOPE
+---------------------
+1. Enable Users to Create & Manage Reservations
+   - Quickly enter restaurant details, set date/time, specify number of seats, and optionally collect payments in advance.
+
+2. Allow Other Users to Join Reservations
+   - Participants can review reservation info, confirm spots, pay ahead (if required), and bring along friends.
+
+3. Provide a Seamless Invitation Flow
+   - Invite friends via email or shareable link.
+   - Friends-of-friends can join with minimal friction.
+
+4. Offer a Smooth Payment Experience
+   - Support credit card or other popular payment methods (Stripe, PayPal, etc.).
+
+5. Notification & Communication
+   - Keep organizers and participants updated about reservation changes, reminders, and group communications.
+
+Out of Scope (for this iteration):
+- Public “browse” or “discovery” of open reservations.
+- Advanced admin portal or restaurant back-end management features.
+
+3. KEY USER ROLES
+-----------------
+1. Organizer: The user who creates the reservation. Responsible for setting details, inviting participants, and possibly collecting payments.
+2. Participant: A user who joins an existing reservation. May need to pay upfront if required.
+3. Guest: An invitee who doesn’t have an account yet. Will be prompted to sign up as a new user when clicking an invitation link.
+
+4. FEATURES & REQUIREMENTS
+--------------------------
+
+4.1 Landing / Home Page
+-----------------------
+Purpose:
+- Introduce the platform, highlight value proposition.
+- Direct new users to sign up or existing users to log in.
+
+Requirements:
+1. Hero Section: A concise message describing the platform’s value (e.g., “Organize group dinners effortlessly!”).
+2. Call-to-Action Buttons:
+   - “Sign Up”
+   - “Log In”
+   - “Create Reservation” (redirects to sign-up/log-in if not authenticated)
+3. Brief How It Works / Key Steps
+4. Footer Links: Terms of Use, Privacy Policy, Contact/Support
+
+4.2 Authentication (Sign Up, Log In, Password Reset)
+----------------------------------------------------
+Purpose:
+- Enable user account creation and secure access.
+
+Requirements:
+1. Sign Up:
+   - Collect first name, last name, email, password (optionally phone).
+   - Optionally social login (Facebook, Google) for convenience.
+2. Log In:
+   - Email + password OR social login.
+3. Password Reset Flow:
+   - Trigger an email with a secure token-based reset link.
+
+Acceptance Criteria:
+- Users can create an account in under a minute.
+- Users can log in/out without friction.
+- Password reset emails are delivered promptly.
+
+4.3 User Dashboard / Profile Page
+---------------------------------
+Purpose:
+- Provide quick access to user’s reservations (created, joined, or pending).
+- Manage profile details, payment settings, and notifications.
+
+Requirements:
+1. Reservation Overview:
+   - Upcoming reservations (as organizer, as participant).
+   - Past reservations with statuses (completed, cancelled).
+2. Profile Info Edit:
+   - Name, avatar, email, phone number.
+3. Payment Info (Optional for MVP; can store for future quick checkouts)
+4. Notification Settings:
+   - Choose email, SMS, or push (if relevant).
+5. Logout / Delete Account Option.
+
+Acceptance Criteria:
+- Users can view and manage all relevant reservations in one place.
+- Users can update profile info easily.
+- Payment methods can be saved securely (if implemented).
+
+4.4 Create & Manage Reservation Flow
+------------------------------------
+Purpose:
+- Let a user become an Organizer by creating a group reservation.
+- The organizer can specify details, number of seats, cost, etc.
+
+Requirements:
+1. Reservation Form:
+   - Fields: Restaurant Name, Address, Date/Time, Total Seats, Cost per Seat (if a deposit or pre-payment is required).
+   - Optional: Extra notes (e.g., “Vegetarian menu available”, “Separate checks needed”).
+2. Upload Reservation Confirmation (optional step):
+   - Allow the user to attach a screenshot or proof.
+3. Payment Setup:
+   - Define deposit amount if needed.
+   - Integrate a third-party processor like Stripe or PayPal.
+4. Spots & Invitation Settings:
+   - Maximum number of guests.
+   - Automatic acceptance vs. manual approval of join requests.
+5. Invitation Generation:
+   - Unique link sharable via email, text, social media.
+   - Direct email invites to specific contacts.
+
+Acceptance Criteria:
+- An Organizer can create a reservation with necessary details in one flow.
+- A unique URL is generated upon creation.
+- Organizer can edit or cancel the reservation before the event date.
+
+4.5 Reservation Detail Page
+---------------------------
+Purpose:
+- Show all reservation info in one place.
+- Allow users to join/pay.
+
+Requirements:
+1. Reservation Metadata:
+   - Title, Restaurant Name/Address, Date/Time, Current # of Participants, # of Remaining Spots.
+2. Attendees List:
+   - Display confirmed attendees, plus any pending invites.
+3. Join / Pay Button (if seats remain):
+   - Initiate payment if required.
+   - Update seat count automatically upon success.
+4. Invite Others:
+   - “Bring a plus one” link for existing participants.
+   - Copy/share link for new invitees.
+5. Comment / Chat Section (optional but recommended):
+   - Thread-based or real-time messaging for participants.
+6. Organizer Controls (only visible to organizer):
+   - Edit reservation details.
+   - Remove participants if necessary.
+   - Cancel the reservation.
+
+Acceptance Criteria:
+- All relevant details are clearly displayed.
+- Payment flow is triggered, and seats update in real-time.
+
+4.6 Invitation & Onboarding Flow
+--------------------------------
+Purpose:
+- Make it easy for existing or new users to join a reservation with minimal steps.
+
+Requirements:
+1. Shareable Link:
+   - If a new user clicks the link, they’re prompted to sign up or log in.
+   - After authentication, redirect to the reservation detail page.
+2. Existing Users:
+   - If logged in, they go straight to the reservation detail page.
+3. Email Invites:
+   - Organizer can input email addresses and send out direct invites.
+4. Plus-One Flow:
+   - Existing participants can forward the link to a friend.
+   - New friend can sign up and join the reservation.
+
+Acceptance Criteria:
+- Invitation link is valid until the reservation is full or closed.
+- New users can create an account and join the reservation within a single flow.
+
+4.7 Payment & Checkout
+----------------------
+Purpose:
+- Securely handle any upfront costs (deposit or partial payment).
+- Provide clarity on transaction details and handle refunds if needed.
+
+Requirements:
+1. Checkout Page:
+   - Per-person cost, total, taxes/fees if applicable.
+   - Payment method selection.
+2. Confirmation:
+   - Post-payment success message, email receipt.
+3. Cancellation & Refund Policy:
+   - Outline partial/full refund rules.
+   - If organizer cancels, system triggers refunds as applicable.
+
+Acceptance Criteria:
+- Transactions are secure (SSL/TLS).
+- Payment completes in a few steps.
+- Receipts are visible on the user’s dashboard.
+
+4.8 Notifications & Messaging
+----------------------------
+Purpose:
+- Keep users updated regarding reservation status, changes, or new invites.
+
+Requirements:
+1. Types of Notifications:
+   - In-App for real-time changes.
+   - Email for major actions (invites, confirmations, cancellations).
+   - SMS (optional) if configured.
+2. Reminders:
+   - Automatic reminders (e.g., 24-48 hours before the event).
+3. Organizer Updates:
+   - If time/date changes, notify all participants.
+4. Comment/Chat Alerts:
+   - If a chat system is in place, notify participants of new messages.
+
+Acceptance Criteria:
+- Users can manage notification preferences (email, SMS, etc.).
+- Critical updates (time change, cancellation) always sent via email or SMS.
+
+4.9 Legal / Support Pages
+-------------------------
+Purpose:
+- Comply with data privacy and usage policies.
+- Provide user support or contact options.
+
+Requirements:
+1. Terms of Use
+2. Privacy Policy
+3. FAQ / Knowledge Base (recommended, can be minimal at MVP stage)
+4. Contact Form / Support
+
+Acceptance Criteria:
+- Pages accessible from footer.
+- Clear statements on data handling and compliance (GDPR, etc. as regionally required).
+
+5. USER FLOWS
+-------------
+5.1 Create Reservation Flow (Organizer):
+   1. Organizer clicks “Create Reservation.”
+   2. Fills out reservation form.
+   3. Chooses payment requirement or skips if not needed.
+   4. Confirms creation.
+   5. System generates unique link for sharing.
+
+5.2 Join Reservation Flow (Participant):
+   1. Participant receives link or invite.
+   2. Signs up/logs in if needed.
+   3. Lands on reservation detail page.
+   4. Clicks “Join / Pay.”
+   5. Completes payment (if required).
+   6. Confirmed seat, added to attendee list.
+
+5.3 Invitation Flow (Friend of a Friend):
+   1. Existing participant shares “plus one” link.
+   2. New friend clicks link, signs up/logs in if necessary.
+   3. Chooses to join, pays if needed.
+   4. Confirmation, now a participant.
+
+5.4 Payment Flow:
+   1. User clicks “Pay Now.”
+   2. System shows checkout, cost breakdown.
+   3. User enters payment details or chooses saved card.
+   4. Payment processed → success/failure notification.
+   5. Seat reservation finalized on success.
+
+5.5 Reservation Update Flow:
+   1. Organizer edits details (date/time, seats).
+   2. System notifies all participants (in-app, email).
+   3. Participants can reconfirm or cancel if needed.
+
+6. NON-FUNCTIONAL REQUIREMENTS
+-----------------------------
+1. Performance:
+   - Pages load in under 2 seconds on average connections.
+   - Payment processing near-instant.
+
+2. Scalability:
+   - Handle moderate user growth without slowdowns.
+   - Database designed for many concurrent reservations.
+
+3. Security:
+   - SSL/TLS for all user data.
+   - Strict access controls for reservation data.
+   - PCI compliance if storing card data.
+
+4. Reliability:
+   - 99.9% uptime for core services (login, payment, reservation data).
+   - Regular backups and redundancy.
+
+5. Usability:
+   - Simple, intuitive flows.
+   - Responsive design for mobile/desktop.
+
+7. MILESTONES & TIMELINE (EXAMPLE)
+----------------------------------
+1. Milestone 1 (2–3 weeks): MVP Setup
+   - Basic scaffolding, user authentication, simple reservation creation.
+
+2. Milestone 2 (3–4 weeks): Core Reservation Features
+   - Reservation detail page, join flow, invites, payment integration, basic notifications.
+
+3. Milestone 3 (2–3 weeks): Dashboard & Profile
+   - User dashboard, profile editing, notification preferences.
+
+4. Milestone 4 (2–3 weeks): Polishing & QA
+   - Full QA, bug fixes, performance checks, limited user testing.Creating a simple text file on GitHub
+Copilot Chat
+
+Chatting about NickRuppy/Sprezzatura
+public repository
+Copilot uses AI. Check for mistakes.
+
+I want to create a simple txt file
+Creating a simple text file in your repository can be done directly on GitHub. Here are the steps to do so:
+
+Navigate to your repository on GitHub.
+Click on the "Add file" button.
+Select "Create new file".
+Name your file with a .txt extension (e.g., example.txt).
+Add your text content in the file editor.
+Scroll down to the "Commit new file" section.
+Add a commit message and choose if you want to commit directly to the main branch or create a new branch.
+Click "Commit new file".
+Would you like to create the file with some specific content?
+
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+Sprezzatura
+/
+ReservPRD.txt
+in
+main
+
+Edit
+
+Preview
+Indent mode
+
+Spaces
+Indent size
+
+2
+Line wrap mode
+
+No wrap
+Editing ReservPRD.txt file contents
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+
+
+5. Milestone 5: Public Release
+   - Address beta feedback, deploy to production.
+
+8. SUCCESS METRICS
+------------------
+1. Number of Reservations Created (weekly/monthly).
+2. Average Number of Participants per Reservation.
+3. Payment Conversion Rate (join → payment completion).
+4. Invitation Acceptance Rate (friends-of-friends who join).
+5. User Retention (return users creating/joining multiple reservations).
+
+9. FUTURE ENHANCEMENTS (BEYOND CURRENT SCOPE)
+--------------------------------------------
+1. Public/Open Reservation Discovery.
+2. Admin Portal for restaurants or platform admins.
+3. Advanced Notification (push via mobile app).
+4. Recommendation Engine for restaurants or events.
+
+CONCLUSION
+----------
+With this PRD, we have a clear roadmap for a platform that focuses on:
+- Simple Reservation Creation
+- Straightforward Join & Payment Flows
+- Efficient Invitation & Communication
+
+Skipping discovery and advanced admin features keeps the MVP lean. We can validate the core use case first and gather feedback for future iterations.
